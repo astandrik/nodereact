@@ -1,0 +1,13 @@
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  margin-bottom: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom-table {
+  height: 60vh;
+  overflow-y: scroll;
+}

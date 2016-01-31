@@ -1,14 +1,19 @@
-var MyComponent = React.createClass({
-    render: function(){
-        return (
-            <div className={this.props.name}>
-                <h1>Hello, world!</h1>
-            </div>
-        );
-    }
-});
+var elements = require('./elements.jsx')()
+var store = require('./store.js');
 
-ReactDOM.render(
-        <MyComponent name='jumbotron'/>,
-        document.getElementById('content')
-    );
+
+  function render() {
+      ReactDOM.render(
+      <div>
+            <elements.List/>
+            <elements.Textarea/>
+      </div>      ,
+            document.getElementById('content')
+      ,
+      function() {
+         $('.custom-table').scrollTop(parseInt($('.list-group').css('height'), 10));  }
+       )
+  }
+
+store.subscribe(render);
+store.dispatch({type:''});

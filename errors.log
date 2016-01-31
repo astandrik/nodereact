@@ -1,0 +1,28 @@
+[4mRunning "jshint:gruntfile" (jshint) task[24m
+[32m>> [39m1 file lint free.
+
+[4mRunning "jshint:all" (jshint) task[24m
+
+[1m   index.js[22m
+      1 |[90mvar fs = require('fs'),[39m
+                  ^ 'require' is not defined.
+      2 |[90m    db= require('db');[39m
+                 ^ 'require' is not defined.
+      1 |[90mvar fs = require('fs'),[39m
+             ^ 'fs' is defined but never used.
+[1m   server.js[22m
+      1 |[90mvar express = require("express");[39m
+                       ^ 'require' is not defined.
+      3 |[90mvar path    = require("path");[39m
+                       ^ 'require' is not defined.
+      5 |[90mapp.use('/js',express.static(path.join(__dirname, 'site/libs/js')));[39m
+                                                ^ '__dirname' is not defined.
+      6 |[90mapp.use('/css',express.static(path.join(__dirname, 'site/libs/css')));[39m
+                                                 ^ '__dirname' is not defined.
+      9 |[90m    res.sendFile(path.join(__dirname+'/site/index.html'));[39m
+                                    ^ '__dirname' is not defined.
+
+[31m>> [39m8 errors in 2 files
+[33mWarning: Task "jshint:all" failed. Use --force to continue.[39m
+
+[31mAborted due to warnings.[39m
