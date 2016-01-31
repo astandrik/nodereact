@@ -28,7 +28,12 @@ app.get('/messages', function(req,res) {
 });
 
 app.post('/postMessage', function(req, res) {
-  var data = require('data.json') || [];
+  var data;
+  try {
+     data = require('data.json');
+  } catch(e) {
+    data = [];
+  }
   var newid = (data.map((item) => {return item.id}).sort((a,b) => {return a > b ? -1 : 1})[0] + 1) || 1;
   req.body.id = newid;
   data.push(req.body);
