@@ -3,10 +3,7 @@ var createStore = Redux.createStore;
 function reducer(state = {message: ''}, action) {
   switch(action.type) {
     case 'MESSAGES_UPDATED':
-      return {messagesList: state.messagesList.concat(action.messages)};
-    case 'MESSAGES_DELETED':
-      var newList = state.messagesList.filter((item) => {return item.id !== action.id});
-      return {messagesList: newList};
+      return {messagesList: action.messages};
     default:
       return {messagesList: state.messagesList ? state.messagesList : [] };
   }
@@ -14,6 +11,7 @@ function reducer(state = {message: ''}, action) {
 
 var store = createStore(reducer);
 
+/*
 function testReducer() {
   var action1 = {
     type : ''
@@ -43,6 +41,6 @@ try {
 } catch (e) {
   console.log(e);
 }
-
+*/
 
 module.exports = store;

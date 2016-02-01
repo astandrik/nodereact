@@ -49,7 +49,7 @@ var homeTest =
 	
 	__webpack_require__(1);
 	var el = __webpack_require__(5);
-	__webpack_require__(6);
+	__webpack_require__(8);
 	
 	exports.hui = 'hhhhhh';
 
@@ -88,7 +88,7 @@ var homeTest =
 	
 	
 	// module
-	exports.push([module.id, ".flex-row {\n  display: flex;\n  flex-direction: row;\n  flex: 1;\n  margin-bottom: 10px;\n  align-items: center;\n  cursor: pointer;\n}\n\n.custom-table {\n  height: 60vh;\n  overflow-y: scroll;\n}\n", ""]);
+	exports.push([module.id, ".flex-row {\r\n  display: flex;\r\n  flex-direction: row;\r\n  flex: 1;\r\n  margin-bottom: 10px;\r\n  align-items: center;\r\n  cursor: pointer;\r\n}\r\n\r\n.custom-table {\r\n  height: 60vh;\r\n  overflow-y: scroll;\r\n}\r\n", ""]);
 	
 	// exports
 
@@ -409,132 +409,10 @@ var homeTest =
 
 	'use strict';
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	module.exports = function (store) {
+	  var List = __webpack_require__(6)(store),
+	      Textarea = __webpack_require__(7)(store);
 	
-	var store = __webpack_require__(7);
-	
-	var Textarea = React.createClass({
-	  displayName: 'Textarea',
-	
-	  getInitialState: function getInitialState() {
-	    return { message: "" };
-	  },
-	  update: function update(e) {
-	    this.setState({ message: e.target.value });
-	  },
-	  getStateMessage: function getStateMessage() {
-	    return store.getState();
-	  },
-	  sendMessage: function sendMessage() {
-	    var currMessage = { text: this.state.message, author: 'Trall' };
-	    $.post('/postMessage', currMessage);
-	    store.dispatch({ type: 'MESSAGES_UPDATED', messages: [currMessage] });
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement('textarea', { className: 'form-control', onChange: this.update, rows: '5' }),
-	      React.createElement(
-	        'button',
-	        { type: 'button', className: 'btn btn-default', onClick: this.sendMessage },
-	        'ОТПРАВИТЬ'
-	      )
-	    );
-	  }
-	});
-	
-	var List = React.createClass({
-	  displayName: 'List',
-	
-	  getInitialState: function getInitialState() {
-	    return { messagesList: '' };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    $.get('/messages', function (data) {
-	      store.dispatch({ type: 'MESSAGES_UPDATED', messages: data });
-	    }.bind(this));
-	  },
-	  deleteItem: function deleteItem(id) {
-	    $.post('/deleteMessage', { id: id });
-	    store.dispatch({ type: 'MESSAGES_DELETED', id: id });
-	  },
-	  getData: function getData() {
-	    var _this = this;
-	
-	    var newList = [];
-	    var messagesList = store.getState().messagesList;
-	    messagesList.forEach(function (item) {
-	      if (item) {
-	        newList.push(React.createElement(
-	          'div',
-	          { className: 'flex-row' },
-	          React.createElement(
-	            'li',
-	            { key: item.id, style: { flex: 1 }, className: 'list-group-item' },
-	            item.author,
-	            ' wrote: ',
-	            item.text
-	          ),
-	          React.createElement(IconDelete, { click: _this.deleteItem.bind(_this, item.id) })
-	        ));
-	      }
-	    });
-	    return newList;
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'custom-table' },
-	      React.createElement(
-	        'ul',
-	        { className: 'list-group' },
-	        this.getData()
-	      )
-	    );
-	  }
-	});
-	
-	var SVGComponent = React.createClass({
-	  displayName: 'SVGComponent',
-	
-	  render: function render() {
-	    return React.createElement(
-	      'svg',
-	      this.props,
-	      this.props.children
-	    );
-	  }
-	});
-	
-	var Bin = React.createClass({
-	  displayName: 'Bin',
-	
-	  render: function render() {
-	    return React.createElement(
-	      'g',
-	      null,
-	      React.createElement('path', _extends({}, this.props, { d: 'M640.35,91.169H536.971V23.991C536.971,10.469,526.064,0,512.543,0c-1.312,0-2.187,0.438-2.614,0.875    C509.491,0.438,508.616,0,508.179,0H265.212h-1.74h-1.75c-13.521,0-23.99,10.469-23.99,23.991v67.179H133.916    c-29.667,0-52.783,23.116-52.783,52.783v38.387v47.981h45.803v491.6c0,29.668,22.679,52.346,52.346,52.346h415.703    c29.667,0,52.782-22.678,52.782-52.346v-491.6h45.366v-47.981v-38.387C693.133,114.286,670.008,91.169,640.35,91.169z     M285.713,47.981h202.84v43.188h-202.84V47.981z M599.349,721.922c0,3.061-1.312,4.363-4.364,4.363H179.282    c-3.052,0-4.364-1.303-4.364-4.363V230.32h424.431V721.922z M644.715,182.339H129.551v-38.387c0-3.053,1.312-4.802,4.364-4.802    H640.35c3.053,0,4.365,1.749,4.365,4.802V182.339z' })),
-	      React.createElement('rect', { x: '475.031', y: '286.593', width: '48.418', height: '396.942' }),
-	      React.createElement('rect', { x: '363.361', y: '286.593', width: '48.418', height: '396.942' }),
-	      React.createElement('rect', { x: '251.69', y: '286.593', width: '48.418', height: '396.942' })
-	    );
-	  }
-	});
-	
-	var IconDelete = React.createClass({
-	  displayName: 'IconDelete',
-	
-	  render: function render() {
-	    return React.createElement(
-	      SVGComponent,
-	      { height: '30px', width: '30px', viewBox: '0 0 774.266 774.266', onClick: this.props.click },
-	      React.createElement(Bin, { height: '30px', width: '30px', x: '25', y: '25' })
-	    );
-	  }
-	});
-	
-	module.exports = function () {
 	  return {
 	    List: List,
 	    Textarea: Textarea
@@ -543,12 +421,157 @@ var homeTest =
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	module.exports = function (store) {
+	  var List = React.createClass({
+	    displayName: 'List',
+	
+	    getInitialState: function getInitialState() {
+	      return { messagesList: '' };
+	    },
+	    componentDidMount: function componentDidMount() {
+	      $.get('/messages', function (data) {
+	        store.dispatch({ type: 'MESSAGES_UPDATED', messages: data });
+	      }.bind(this));
+	    },
+	    deleteItem: function deleteItem(id) {
+	      $.post('/deleteMessage', { id: id });
+	      store.dispatch({ type: 'MESSAGES_DELETED', id: id });
+	    },
+	    getData: function getData() {
+	      var _this = this;
+	
+	      var newList = [];
+	      var messagesList = store.getState().messagesList;
+	      messagesList.forEach(function (item) {
+	        if (item) {
+	          newList.push(React.createElement(
+	            'div',
+	            { className: 'flex-row' },
+	            React.createElement(
+	              'li',
+	              { key: item.id, style: { flex: 1 }, className: 'list-group-item' },
+	              item.author,
+	              ' wrote: ',
+	              item.text
+	            ),
+	            React.createElement(IconDelete, { click: _this.deleteItem.bind(_this, item.id) })
+	          ));
+	        }
+	      });
+	      return newList;
+	    },
+	    render: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: 'custom-table' },
+	        React.createElement(
+	          'ul',
+	          { className: 'list-group' },
+	          this.getData()
+	        )
+	      );
+	    }
+	  });
+	
+	  var SVGComponent = React.createClass({
+	    displayName: 'SVGComponent',
+	
+	    render: function render() {
+	      return React.createElement(
+	        'svg',
+	        this.props,
+	        this.props.children
+	      );
+	    }
+	  });
+	
+	  var Bin = React.createClass({
+	    displayName: 'Bin',
+	
+	    render: function render() {
+	      return React.createElement(
+	        'g',
+	        null,
+	        React.createElement('path', _extends({}, this.props, { d: 'M640.35,91.169H536.971V23.991C536.971,10.469,526.064,0,512.543,0c-1.312,0-2.187,0.438-2.614,0.875    C509.491,0.438,508.616,0,508.179,0H265.212h-1.74h-1.75c-13.521,0-23.99,10.469-23.99,23.991v67.179H133.916    c-29.667,0-52.783,23.116-52.783,52.783v38.387v47.981h45.803v491.6c0,29.668,22.679,52.346,52.346,52.346h415.703    c29.667,0,52.782-22.678,52.782-52.346v-491.6h45.366v-47.981v-38.387C693.133,114.286,670.008,91.169,640.35,91.169z     M285.713,47.981h202.84v43.188h-202.84V47.981z M599.349,721.922c0,3.061-1.312,4.363-4.364,4.363H179.282    c-3.052,0-4.364-1.303-4.364-4.363V230.32h424.431V721.922z M644.715,182.339H129.551v-38.387c0-3.053,1.312-4.802,4.364-4.802    H640.35c3.053,0,4.365,1.749,4.365,4.802V182.339z' })),
+	        React.createElement('rect', { x: '475.031', y: '286.593', width: '48.418', height: '396.942' }),
+	        React.createElement('rect', { x: '363.361', y: '286.593', width: '48.418', height: '396.942' }),
+	        React.createElement('rect', { x: '251.69', y: '286.593', width: '48.418', height: '396.942' })
+	      );
+	    }
+	  });
+	
+	  var IconDelete = React.createClass({
+	    displayName: 'IconDelete',
+	
+	    render: function render() {
+	      return React.createElement(
+	        SVGComponent,
+	        { height: '30px', width: '30px', viewBox: '0 0 774.266 774.266', onClick: this.props.click },
+	        React.createElement(Bin, { height: '30px', width: '30px', x: '25', y: '25' })
+	      );
+	    }
+	  });
+	
+	  return List;
+	};
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function (store) {
+	
+	    var Textarea = React.createClass({
+	        displayName: 'Textarea',
+	
+	        getInitialState: function getInitialState() {
+	            return { message: "" };
+	        },
+	        update: function update(e) {
+	            this.setState({ message: e.target.value });
+	        },
+	        getStateMessage: function getStateMessage() {
+	            return store.getState();
+	        },
+	        sendMessage: function sendMessage() {
+	            var currMessage = { text: this.state.message, author: 'Trall' };
+	            $.post('/postMessage', currMessage).then(function (data) {
+	                store.dispatch({ type: 'MESSAGES_UPDATED', messages: data });
+	            });
+	            this.setState({ message: '' });
+	        },
+	        render: function render() {
+	            return React.createElement(
+	                'div',
+	                null,
+	                React.createElement('textarea', { value: this.state.message, className: 'form-control', onChange: this.update, rows: '5' }),
+	                React.createElement(
+	                    'button',
+	                    { type: 'button', className: 'btn btn-default', onClick: this.sendMessage },
+	                    'ОТПРАВИТЬ'
+	                )
+	            );
+	        }
+	    });
+	    return Textarea;
+	};
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var elements = __webpack_require__(5)();
-	var store = __webpack_require__(7);
+	var store = __webpack_require__(9);
+	var elements = __webpack_require__(5)(store);
 	
 	function render() {
 	      ReactDOM.render(React.createElement(
@@ -565,7 +588,7 @@ var homeTest =
 	store.dispatch({ type: '' });
 
 /***/ },
-/* 7 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -578,12 +601,7 @@ var homeTest =
 	
 	  switch (action.type) {
 	    case 'MESSAGES_UPDATED':
-	      return { messagesList: state.messagesList.concat(action.messages) };
-	    case 'MESSAGES_DELETED':
-	      var newList = state.messagesList.filter(function (item) {
-	        return item.id !== action.id;
-	      });
-	      return { messagesList: newList };
+	      return { messagesList: action.messages };
 	    default:
 	      return { messagesList: state.messagesList ? state.messagesList : [] };
 	  }
@@ -591,23 +609,24 @@ var homeTest =
 	
 	var store = createStore(reducer);
 	
+	/*
 	function testReducer() {
 	  var action1 = {
-	    type: ''
+	    type : ''
 	  };
 	  var action2 = {
 	    type: 'MESSAGES_UPDATED',
-	    messages: [{ author: 'Ubludok', text: 'Mat tvou', id: 1 }]
+	    messages: [{author: 'Ubludok', text: 'Mat tvou', id: 1}]
 	  };
 	  var action3 = {
-	    type: 'MESSAGES_DELETED',
-	    id: 1
+	      type: 'MESSAGES_DELETED',
+	      id: 1
+	  }
+	  let state1 = {
+	    messagesList: [{author: 'Govno', text: 'Zhopa', id: 2}]
 	  };
-	  var state1 = {
-	    messagesList: [{ author: 'Govno', text: 'Zhopa', id: 2 }]
-	  };
-	  var state2 = {
-	    messagesList: [{ author: 'Govno', text: 'Zhopa', id: 2 }, { author: 'Ubludok', text: 'Mat tvou', id: 1 }]
+	  let state2 = {
+	    messagesList: [{author: 'Govno', text: 'Zhopa', id: 2}, {author: 'Ubludok', text: 'Mat tvou', id:1}]
 	  };
 	  expect(reducer(state1, action1)).toEqual(state1);
 	  expect(reducer(state1, action2)).toEqual(state2);
@@ -615,11 +634,12 @@ var homeTest =
 	}
 	
 	try {
-	  testReducer();
-	  console.log('All tests passed');
+	    testReducer();
+	    console.log('All tests passed');
 	} catch (e) {
 	  console.log(e);
 	}
+	*/
 	
 	module.exports = store;
 

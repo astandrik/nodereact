@@ -1,6 +1,5 @@
-var elements = require('./elements.jsx')()
 var store = require('./store.js');
-
+var elements = require('./elements.jsx')(store)
 
   function render() {
       ReactDOM.render(
