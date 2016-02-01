@@ -4,6 +4,7 @@ var elements = require('./elements.jsx')(store)
   function render() {
       ReactDOM.render(
       <div>
+            <elements.Toolbar/>
             <elements.List/>
             <elements.Textarea/>
       </div>      ,
