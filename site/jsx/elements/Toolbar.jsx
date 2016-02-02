@@ -1,3 +1,7 @@
+var Router = window.ReactRouter.Router;
+var Route = window.ReactRouter.Route;
+var Link = window.ReactRouter.Link;
+
 module.exports = function(store){
 
   var ToolBar = React.createClass({
@@ -9,8 +13,8 @@ module.exports = function(store){
               <a className="navbar-brand" href="#">Project PAHOM</a>
             </div>
             <ul className="nav navbar-nav">
-              <li><a href="/chat">Chat</a></li>
-              <li><a href="/users">Users</a></li>
+              <li><Link to="/chat" className='custom-link'>Chat</Link></li>
+              <li><Link to="/users" className='custom-link'>Users</Link></li>
             </ul>
           </div>
         </nav>

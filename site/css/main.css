@@ -10,4 +10,14 @@
 .custom-table {
   height: 50vh;
   overflow-y: scroll;
+  border-top: 1px #e7e7e7 solid;
+}
+
+
+.custom-container {
+
+}
+
+.custom-link {
+  cursor: pointer;
 }

@@ -1,7 +1,7 @@
 
-
 module.exports = function(store) {
-    var List = React.createClass({
+   var Textarea = require('./Textarea.jsx')(store);
+    var Chat = React.createClass({
   getInitialState: function() {
     return {messagesList: ''}
   },
@@ -11,7 +11,9 @@ module.exports = function(store) {
     }.bind(this));
   },
   deleteItem: function(id) {
-    $.post('/deleteMessage', {id: id});
+    $.post('/deleteMessage', {id: id}).then(function(data) {
+      store.dispatch({type: 'MESSAGES_UPDATED', messages: data});
+    })
     store.dispatch({type: 'MESSAGES_DELETED', id: id});
   },
   getData: function() {
@@ -31,10 +33,13 @@ module.exports = function(store) {
   },
   render: function() {
       return (
-        <div className='custom-table'>
-          <ul className="list-group">
-            {this.getData()}
-          </ul>
+        <div>
+          <div className='custom-table'>
+            <ul className="list-group">
+              {this.getData()}
+            </ul>
+          </div>
+          <Textarea/>
         </div>
       )
   }
@@ -70,5 +75,5 @@ var IconDelete = React.createClass({
   }
 })
 
-return List;
+return Chat;
 }

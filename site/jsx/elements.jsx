@@ -1,13 +1,15 @@
 
 
 module.exports = function(store) {
-    var  List = require('./elements/List.jsx')(store),
+    var  Chat = require('./elements/Chat.jsx')(store),
          Textarea = require('./elements/Textarea.jsx')(store),
-         Toolbar = require('./elements/Toolbar.jsx')(store);
+         Toolbar = require('./elements/Toolbar.jsx')(store),
+         UsersList = require('./elements/UsersList.jsx')(store);
 
   return {
-    List: List,
+    Chat: Chat,
     Textarea : Textarea,
-    Toolbar : Toolbar
+    Toolbar : Toolbar,
+    UsersList: UsersList
   };
 };
