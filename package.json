@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": ">= 0.10.0"
+  "node": "4.2.1"
   },
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "~6.4.0",
