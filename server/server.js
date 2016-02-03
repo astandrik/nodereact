@@ -6,6 +6,6 @@ var express = require("express"),
 
 
 
-
-app.listen(process.env.PORT || 8080);
-console.log('http://127.0.0.1:11960');
+var port = process.env.PORT || 8080;
+app.listen(port);
+console.log('http://127.0.0.1:' + port);
