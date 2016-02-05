@@ -16,6 +16,14 @@ var Container = React.createClass({
   }
 })
 
+var socket =  io.connect('http://localhost:'+8080);
+  socket.on('messagesUpdated', function (data) {
+    $.get('/messages', function(data) {
+      store.dispatch({type: 'MESSAGES_UPDATED', messages: data});
+    });
+  });
+
+
   function render() {
       ReactDOM.render(
       <div>

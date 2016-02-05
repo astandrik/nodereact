@@ -1,4 +1,3 @@
-
 module.exports = function(store) {
    var Textarea = require('./Textarea.jsx')(store);
     var Chat = React.createClass({
