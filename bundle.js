@@ -432,7 +432,9 @@ var homeTest =
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	module.exports = function (store) {
+	
 	  var Textarea = __webpack_require__(7)(store);
+	
 	  var Chat = React.createClass({
 	    displayName: 'Chat',
 	
@@ -462,7 +464,7 @@ var homeTest =
 	            { className: 'flex-row' },
 	            React.createElement(
 	              'li',
-	              { key: item.id, style: { flex: 1 }, className: 'list-group-item' },
+	              { key: item.id.toString(), style: { flex: 1 }, className: 'list-group-item' },
 	              item.author,
 	              ' wrote: ',
 	              item.text
@@ -701,7 +703,7 @@ var homeTest =
 	  }
 	});
 	
-	var socket = io.connect('http://localhost:' + 8080);
+	var socket = io.connect(location.host);
 	socket.on('messagesUpdated', function (data) {
 	  $.get('/messages', function (data) {
 	    store.dispatch({ type: 'MESSAGES_UPDATED', messages: data });
@@ -737,34 +739,27 @@ var homeTest =
 	'use strict';
 	
 	var createStore = Redux.createStore;
+	var combineReducers = Redux.combineReducers;
 	
-	function messagesReducer(messages, action) {
+	function messagesList(state, action) {
 	  switch (action.type) {
 	    case 'MESSAGES_UPDATED':
 	      return action.messages;
 	    default:
-	      return messages ? messages : [];
+	      return state ? state : [];
 	  }
 	}
 	
-	function usersReducer(users, action) {
+	function usersList(state, action) {
 	  switch (action.type) {
 	    case 'USERS_UPDATED':
 	      return action.usersList;
 	    default:
-	      return users ? users : [];
+	      return state ? state : [];
 	  }
 	}
 	
-	function reducer() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	  var action = arguments[1];
-	
-	  return {
-	    messagesList: messagesReducer(state.messagesList, action),
-	    usersList: usersReducer(state.usersList, action)
-	  };
-	}
+	var reducer = combineReducers({ messagesList: messagesList, usersList: usersList });
 	
 	var store = createStore(reducer);
 	

@@ -1,29 +1,25 @@
 var createStore = Redux.createStore;
+var combineReducers = Redux.combineReducers;
 
-function messagesReducer(messages, action) {
+function messagesList(state, action) {
   switch(action.type) {
     case 'MESSAGES_UPDATED':
       return  action.messages;
     default:
-      return messages ? messages : [];
+      return state ? state: [];
   }
 }
 
-function usersReducer(users, action) {
+function usersList(state, action) {
   switch (action.type) {
     case 'USERS_UPDATED':
       return action.usersList;
     default:
-      return  users ? users : [];
+      return  state ? state : [];
   }
 }
 
-function reducer(state = {}, action) {
-  return {
-    messagesList: messagesReducer(state.messagesList, action),
-    usersList: usersReducer(state.usersList, action)
-  }
-}
+const reducer = combineReducers({messagesList,usersList})
 
 var store = createStore(reducer);
 

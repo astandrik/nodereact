@@ -1,6 +1,8 @@
 module.exports = function(store) {
-   var Textarea = require('./Textarea.jsx')(store);
-    var Chat = React.createClass({
+
+  var Textarea = require('./Textarea.jsx')(store);
+
+  var Chat = React.createClass({
   getInitialState: function() {
     return {messagesList: ''}
   },
@@ -22,9 +24,9 @@ module.exports = function(store) {
       if(item) {
         newList.push(
           <div className="flex-row">
-          <li key={item.id} style={{flex:1}} className="list-group-item">{item.author} wrote: {item.text}</li>
+            <li key={item.id} style={{flex:1}} className="list-group-item">{item.author} wrote: {item.text}</li>
             <IconDelete click={this.deleteItem.bind(this, item.id)}/>
-        </div>
+          </div>
          )
       }
     })
