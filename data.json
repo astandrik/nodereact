@@ -36,6 +36,7 @@
         "text": "rttr",
         "author": "Trall",
         "id": 20
+<<<<<<< HEAD
     }, {
         "text": "d",
         "author": "Trall",
@@ -196,5 +197,7 @@
         "text": "wewew",
         "author": "Trall",
         "id": 60
+=======
+>>>>>>> 3e17ffeb942d17c1de38859c64dce429a18d2a96
     }]
 }
