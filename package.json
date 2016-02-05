@@ -39,6 +39,6 @@
     "webpack": "1.12.12"
   },
   "scripts": {
-    "start": "node server/server.js"
+    "start": "webpack --progress && node server/server.js"
   }
 }

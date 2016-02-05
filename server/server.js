@@ -10,7 +10,9 @@ var config = require('config')(app, emitter),
     router = require('router')(app, emitter);
 
 var port = process.env.PORT || 8080;
-var server = app.listen(port);
+var server = app.listen(port, function() {
+  console.log(this.address());
+});
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -18,9 +20,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-io(server).sockets.on('connection', function(socket) {
-  emitter.emit = function(message, data) {
-    socket.emit(message, data);
-  };
+var ioServSocket = io(server).sockets;
+
+ioServSocket.on('connection', function(socket) {
+  console.log('user Connected');
 });
-console.log('http://127.0.0.1:' + port);
+
+emitter.emit = function(message, data) {
+  ioServSocket.emit(message, data);
+};

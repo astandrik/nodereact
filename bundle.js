@@ -88,7 +88,7 @@ var homeTest =
 	
 	
 	// module
-	exports.push([module.id, ".flex-row {\n  display: flex;\n  flex-direction: row;\n  flex: 1;\n  margin-bottom: 10px;\n  align-items: center;\n  cursor: pointer;\n}\n\n.custom-table {\n  height: 50vh;\n  overflow-y: scroll;\n  border-top: 1px #e7e7e7 solid;\n}\n\n\n.custom-container {\n\n}\n\n.custom-link {\n  cursor: pointer;\n}\n", ""]);
+	exports.push([module.id, ".flex-row {\r\n  display: flex;\r\n  flex-direction: row;\r\n  flex: 1;\r\n  margin-bottom: 10px;\r\n  align-items: center;\r\n  cursor: pointer;\r\n}\r\n\r\n.custom-table {\r\n  height: 50vh;\r\n  overflow-y: scroll;\r\n  border-top: 1px #e7e7e7 solid;\r\n}\r\n\r\n\r\n.custom-container {\r\n\r\n}\r\n\r\n.custom-link {\r\n  cursor: pointer;\r\n}\r\n", ""]);
 	
 	// exports
 
@@ -541,39 +541,39 @@ var homeTest =
 	
 	module.exports = function (store) {
 	
-	  var Textarea = React.createClass({
-	    displayName: 'Textarea',
+	    var Textarea = React.createClass({
+	        displayName: 'Textarea',
 	
-	    getInitialState: function getInitialState() {
-	      return { message: "" };
-	    },
-	    update: function update(e) {
-	      this.setState({ message: e.target.value });
-	    },
-	    getStateMessage: function getStateMessage() {
-	      return store.getState();
-	    },
-	    sendMessage: function sendMessage() {
-	      var currMessage = { text: this.state.message, author: 'Trall' };
-	      $.post('/postMessage', currMessage).then(function (data) {
-	        store.dispatch({ type: 'MESSAGES_UPDATED', messages: data });
-	      });
-	      this.setState({ message: '' });
-	    },
-	    render: function render() {
-	      return React.createElement(
-	        'div',
-	        null,
-	        React.createElement('textarea', { value: this.state.message, className: 'form-control', onChange: this.update, rows: '5' }),
-	        React.createElement(
-	          'button',
-	          { type: 'button', className: 'btn btn-default', onClick: this.sendMessage },
-	          'ОТПРАВИТЬ'
-	        )
-	      );
-	    }
-	  });
-	  return Textarea;
+	        getInitialState: function getInitialState() {
+	            return { message: "" };
+	        },
+	        update: function update(e) {
+	            this.setState({ message: e.target.value });
+	        },
+	        getStateMessage: function getStateMessage() {
+	            return store.getState();
+	        },
+	        sendMessage: function sendMessage() {
+	            var currMessage = { text: this.state.message, author: 'Trall' };
+	            $.post('/postMessage', currMessage).then(function (data) {
+	                store.dispatch({ type: 'MESSAGES_UPDATED', messages: data });
+	            });
+	            this.setState({ message: '' });
+	        },
+	        render: function render() {
+	            return React.createElement(
+	                'div',
+	                null,
+	                React.createElement('textarea', { value: this.state.message, className: 'form-control', onChange: this.update, rows: '5' }),
+	                React.createElement(
+	                    'button',
+	                    { type: 'button', className: 'btn btn-default', onClick: this.sendMessage },
+	                    'ОТПРАВИТЬ'
+	                )
+	            );
+	        }
+	    });
+	    return Textarea;
 	};
 
 /***/ },
