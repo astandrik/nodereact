@@ -88,7 +88,7 @@ var homeTest =
 	
 	
 	// module
-	exports.push([module.id, ".flex-row {\r\n  display: flex;\r\n  flex-direction: row;\r\n  flex: 1;\r\n  margin-bottom: 10px;\r\n  align-items: center;\r\n  cursor: pointer;\r\n}\r\n\r\n.custom-table {\r\n  height: 50vh;\r\n  overflow-y: scroll;\r\n  border-top: 1px #e7e7e7 solid;\r\n}\r\n\r\n\r\n.custom-container {\r\n\r\n}\r\n\r\n.custom-link {\r\n  cursor: pointer;\r\n}\r\n", ""]);
+	exports.push([module.id, ".flex-row {\n  display: flex;\n  flex-direction: row;\n  flex: 1;\n  margin-bottom: 10px;\n  align-items: center;\n  cursor: pointer;\n}\n\n.custom-table {\n  height: calc(100vh - 80px);\n  overflow-y: scroll;\n  border-top: 1px #e7e7e7 solid;\n  border-bottom: 1px #e7e7e7 solid;\n}\n\n.flex-stretch {\n  align-items: stretch;\n}\n\n.justify-center {\n  justify-content: center;\n}\n\n.justify-around {\n  justify-content: space-around;\n}\n\n.post-header {\n  height: 20px;\n  border-bottom: 1px #e7e7e7 solid;\n}\n\n.post-text {\n  margin-top: 20px;\n}\n\n.list-group-item {\n  min-height: 100px;\n  max-width:90%;\n  height: auto;\n}\n\n.flex-column {\n  display: flex;\n  flex-direction: column;\n}\n\n.custom-container {\n\n}\n\n.custom-link {\n  cursor: pointer;\n}\n", ""]);
 	
 	// exports
 
@@ -461,15 +461,26 @@ var homeTest =
 	        if (item) {
 	          newList.push(React.createElement(
 	            'div',
-	            { className: 'flex-row' },
+	            { key: item.id, className: 'flex-row justify-center flex-stretch' },
 	            React.createElement(
 	              'li',
-	              { key: item.id.toString(), style: { flex: 1 }, className: 'list-group-item' },
-	              item.author,
-	              ' wrote: ',
-	              item.text
+	              { style: { flex: 1 }, className: 'list-group-item' },
+	              React.createElement(Post, { text: item.text, author: item.author })
 	            ),
-	            React.createElement(IconDelete, { click: _this.deleteItem.bind(_this, item.id) })
+	            React.createElement(
+	              'div',
+	              { className: 'flex-column justify-around' },
+	              React.createElement(
+	                'div',
+	                null,
+	                React.createElement(IconDelete, { click: _this.deleteItem.bind(_this, item.id) })
+	              ),
+	              React.createElement(
+	                'div',
+	                null,
+	                React.createElement(IconPost, null)
+	              )
+	            )
 	          ));
 	        }
 	      });
@@ -487,8 +498,28 @@ var homeTest =
 	            { className: 'list-group' },
 	            this.getData()
 	          )
+	        )
+	      );
+	    }
+	  });
+	
+	  var Post = React.createClass({
+	    displayName: 'Post',
+	
+	    render: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: 'flex-column' },
+	        React.createElement(
+	          'div',
+	          { className: 'post-header' },
+	          this.props.author
 	        ),
-	        React.createElement(Textarea, null)
+	        React.createElement(
+	          'div',
+	          { className: 'post-text' },
+	          this.props.text
+	        )
 	      );
 	    }
 	  });
@@ -520,14 +551,40 @@ var homeTest =
 	    }
 	  });
 	
+	  var Write = React.createClass({
+	    displayName: 'Write',
+	
+	    render: function render() {
+	      return React.createElement(
+	        'g',
+	        null,
+	        React.createElement('path', _extends({}, this.props, { d: 'M280.497,120.476c3.085-8.391,3.192-15.358-0.41-19.694c-6.795-8.046-24.655-5.026-45.816,5.975     l-58.716-70.191c9.621-14.064,13.352-26.424,8.197-32.637c-8.909-10.591-40.23,0.971-69.932,25.799     C84.095,54.599,67.27,83.352,76.179,94.03c5.177,6.191,17.968,4.681,33.543-2.308l24.073,28.754H52.645v371.449H439.28V120.476     H280.497z M412.661,465.285c-23.706,0-309.713,0-333.441,0c0-23.598,0-294.614,0-318.234c7.032,0,37.274,0,76.814,0     l12.425,14.841c-14.539,18.896-20.665,35.958-13.892,44.026c9.383,11.217,40.035,1.251,71.378-22.132l49.246,55.696     c0,0,9.685,4.422,16.351-2.243c6.665-6.622,3.494-14.345,3.494-14.345l-49.225-55.739c7.14-6.687,13.417-13.482,18.702-20.104     c70.838,0,137.255,0,148.148,0C412.661,170.671,412.661,441.686,412.661,465.285z' })),
+	        React.createElement('rect', { x: '115.847', y: '267.157', width: '258.742', height: '35.117' }),
+	        React.createElement('rect', { x: '115.847', y: '362.931', width: '258.742', height: '35.117' })
+	      );
+	    }
+	  });
+	
+	  var IconPost = React.createClass({
+	    displayName: 'IconPost',
+	
+	    render: function render() {
+	      return React.createElement(
+	        SVGComponent,
+	        { height: '30', width: '30', viewBox: '0 0 491.925 491.925', onClick: this.props.click },
+	        React.createElement(Write, null)
+	      );
+	    }
+	  });
+	
 	  var IconDelete = React.createClass({
 	    displayName: 'IconDelete',
 	
 	    render: function render() {
 	      return React.createElement(
 	        SVGComponent,
-	        { height: '30px', width: '30px', viewBox: '0 0 774.266 774.266', onClick: this.props.click },
-	        React.createElement(Bin, { height: '30px', width: '30px', x: '25', y: '25' })
+	        { height: '30', width: '30', viewBox: '0 0 774.266 774.266', onClick: this.props.click },
+	        React.createElement(Bin, null)
 	      );
 	    }
 	  });
@@ -543,39 +600,39 @@ var homeTest =
 	
 	module.exports = function (store) {
 	
-	    var Textarea = React.createClass({
-	        displayName: 'Textarea',
+	  var Textarea = React.createClass({
+	    displayName: 'Textarea',
 	
-	        getInitialState: function getInitialState() {
-	            return { message: "" };
-	        },
-	        update: function update(e) {
-	            this.setState({ message: e.target.value });
-	        },
-	        getStateMessage: function getStateMessage() {
-	            return store.getState();
-	        },
-	        sendMessage: function sendMessage() {
-	            var currMessage = { text: this.state.message, author: 'Trall' };
-	            $.post('/postMessage', currMessage).then(function (data) {
-	                store.dispatch({ type: 'MESSAGES_UPDATED', messages: data });
-	            });
-	            this.setState({ message: '' });
-	        },
-	        render: function render() {
-	            return React.createElement(
-	                'div',
-	                null,
-	                React.createElement('textarea', { value: this.state.message, className: 'form-control', onChange: this.update, rows: '5' }),
-	                React.createElement(
-	                    'button',
-	                    { type: 'button', className: 'btn btn-default', onClick: this.sendMessage },
-	                    'ОТПРАВИТЬ'
-	                )
-	            );
-	        }
-	    });
-	    return Textarea;
+	    getInitialState: function getInitialState() {
+	      return { message: "" };
+	    },
+	    update: function update(e) {
+	      this.setState({ message: e.target.value });
+	    },
+	    getStateMessage: function getStateMessage() {
+	      return store.getState();
+	    },
+	    sendMessage: function sendMessage() {
+	      var currMessage = { text: this.state.message, author: 'Trall' };
+	      $.post('/postMessage', currMessage).then(function (data) {
+	        store.dispatch({ type: 'MESSAGES_UPDATED', messages: data });
+	      });
+	      this.setState({ message: '' });
+	    },
+	    render: function render() {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement('textarea', { value: this.state.message, className: 'form-control', onChange: this.update, rows: '5' }),
+	        React.createElement(
+	          'button',
+	          { type: 'button', className: 'btn btn-default', onClick: this.sendMessage },
+	          'ОТПРАВИТЬ'
+	        )
+	      );
+	    }
+	  });
+	  return Textarea;
 	};
 
 /***/ },

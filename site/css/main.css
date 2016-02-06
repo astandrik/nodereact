@@ -8,11 +8,43 @@
 }
 
 .custom-table {
-  height: 50vh;
+  height: calc(100vh - 80px);
   overflow-y: scroll;
   border-top: 1px #e7e7e7 solid;
+  border-bottom: 1px #e7e7e7 solid;
 }
 
+.flex-stretch {
+  align-items: stretch;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.post-header {
+  height: 20px;
+  border-bottom: 1px #e7e7e7 solid;
+}
+
+.post-text {
+  margin-top: 20px;
+}
+
+.list-group-item {
+  min-height: 100px;
+  max-width:90%;
+  height: auto;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
 
 .custom-container {
 
