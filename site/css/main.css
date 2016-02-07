@@ -41,6 +41,12 @@
   height: auto;
 }
 
+.post-form {
+  max-width:90%;
+  height: auto;
+  margin-top: 10px;
+}
+
 .flex-column {
   display: flex;
   flex-direction: column;

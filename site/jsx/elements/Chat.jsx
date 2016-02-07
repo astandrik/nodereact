@@ -15,7 +15,9 @@ module.exports = function(store) {
     $.post('/deleteMessage', {id: id}).then(function(data) {
       store.dispatch({type: 'MESSAGES_UPDATED', messages: data});
     })
-    store.dispatch({type: 'MESSAGES_DELETED', id: id});
+  },
+  showPostMessage: function(id) {
+    store.dispatch({type: 'TOGGLE_POST', id: id});
   },
   getData: function() {
     var newList = [];
@@ -23,22 +25,25 @@ module.exports = function(store) {
     messagesList.forEach((item) => {
       if(item) {
         newList.push(
-          <div key={item.id} className="flex-row justify-center flex-stretch">
-            <li style={{flex:1}} className="list-group-item">
-              <Post text={item.text} author={item.author}></Post>
-            </li>
-            <div className="flex-column justify-around">
-              <div>
-                <IconDelete click={this.deleteItem.bind(this, item.id)}/>
-              </div>
-              <div>
-                <IconPost></IconPost>
+          <div key={item.id} className="flex-column">
+            <div className="flex-row justify-center flex-stretch">
+              <li style={{flex:1}} className="list-group-item">
+                 <Post text={item.text} author={item.author}></Post>
+              </li>
+              <PostToolBar item={item} deleteItem={this.deleteItem} showPostMessage={this.showPostMessage}/>
+            </div>
+            <div className="flex-row justify-center flex-stretch">
+              <div className="post-form" style={{flex:1}} >
+                {   (()=> {
+                  if(item.postFormShown) return  <Textarea></Textarea>
+                  })()
+                }
               </div>
             </div>
           </div>
          )
       }
-    })
+    });
     return newList;
   },
   render: function() {
@@ -52,6 +57,23 @@ module.exports = function(store) {
         </div>
       )
   }
+});
+
+var PostToolBar = React.createClass({
+  getInitialState: function() {
+    return {messagesList: ''}
+  },
+  render: function() {
+    return (
+    <div className="flex-column justify-around">
+      <div>
+        <IconDelete click={this.props.deleteItem.bind(null,this.props.item.id)}/>
+      </div>
+      <div>
+        <IconPost click={this.props.showPostMessage.bind(null, this.props.item.id)}></IconPost>
+      </div>
+    </div>
+  )}
 });
 
 var Post = React.createClass({

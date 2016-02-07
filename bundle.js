@@ -88,7 +88,7 @@ var homeTest =
 	
 	
 	// module
-	exports.push([module.id, ".flex-row {\n  display: flex;\n  flex-direction: row;\n  flex: 1;\n  margin-bottom: 10px;\n  align-items: center;\n  cursor: pointer;\n}\n\n.custom-table {\n  height: calc(100vh - 80px);\n  overflow-y: scroll;\n  border-top: 1px #e7e7e7 solid;\n  border-bottom: 1px #e7e7e7 solid;\n}\n\n.flex-stretch {\n  align-items: stretch;\n}\n\n.justify-center {\n  justify-content: center;\n}\n\n.justify-around {\n  justify-content: space-around;\n}\n\n.post-header {\n  height: 20px;\n  border-bottom: 1px #e7e7e7 solid;\n}\n\n.post-text {\n  margin-top: 20px;\n}\n\n.list-group-item {\n  min-height: 100px;\n  max-width:90%;\n  height: auto;\n}\n\n.flex-column {\n  display: flex;\n  flex-direction: column;\n}\n\n.custom-container {\n\n}\n\n.custom-link {\n  cursor: pointer;\n}\n", ""]);
+	exports.push([module.id, ".flex-row {\n  display: flex;\n  flex-direction: row;\n  flex: 1;\n  margin-bottom: 10px;\n  align-items: center;\n  cursor: pointer;\n}\n\n.custom-table {\n  height: calc(100vh - 80px);\n  overflow-y: scroll;\n  border-top: 1px #e7e7e7 solid;\n  border-bottom: 1px #e7e7e7 solid;\n}\n\n.flex-stretch {\n  align-items: stretch;\n}\n\n.justify-center {\n  justify-content: center;\n}\n\n.justify-around {\n  justify-content: space-around;\n}\n\n.post-header {\n  height: 20px;\n  border-bottom: 1px #e7e7e7 solid;\n}\n\n.post-text {\n  margin-top: 20px;\n}\n\n.list-group-item {\n  min-height: 100px;\n  max-width:90%;\n  height: auto;\n}\n\n.post-form {\n  max-width:90%;\n  height: auto;\n  margin-top: 10px;\n}\n\n.flex-column {\n  display: flex;\n  flex-direction: column;\n}\n\n.custom-container {\n\n}\n\n.custom-link {\n  cursor: pointer;\n}\n", ""]);
 	
 	// exports
 
@@ -450,7 +450,9 @@ var homeTest =
 	      $.post('/deleteMessage', { id: id }).then(function (data) {
 	        store.dispatch({ type: 'MESSAGES_UPDATED', messages: data });
 	      });
-	      store.dispatch({ type: 'MESSAGES_DELETED', id: id });
+	    },
+	    showPostMessage: function showPostMessage(id) {
+	      store.dispatch({ type: 'TOGGLE_POST', id: id });
 	    },
 	    getData: function getData() {
 	      var _this = this;
@@ -461,24 +463,26 @@ var homeTest =
 	        if (item) {
 	          newList.push(React.createElement(
 	            'div',
-	            { key: item.id, className: 'flex-row justify-center flex-stretch' },
+	            { key: item.id, className: 'flex-column' },
 	            React.createElement(
-	              'li',
-	              { style: { flex: 1 }, className: 'list-group-item' },
-	              React.createElement(Post, { text: item.text, author: item.author })
+	              'div',
+	              { className: 'flex-row justify-center flex-stretch' },
+	              React.createElement(
+	                'li',
+	                { style: { flex: 1 }, className: 'list-group-item' },
+	                React.createElement(Post, { text: item.text, author: item.author })
+	              ),
+	              React.createElement(PostToolBar, { item: item, deleteItem: _this.deleteItem, showPostMessage: _this.showPostMessage })
 	            ),
 	            React.createElement(
 	              'div',
-	              { className: 'flex-column justify-around' },
+	              { className: 'flex-row justify-center flex-stretch' },
 	              React.createElement(
 	                'div',
-	                null,
-	                React.createElement(IconDelete, { click: _this.deleteItem.bind(_this, item.id) })
-	              ),
-	              React.createElement(
-	                'div',
-	                null,
-	                React.createElement(IconPost, null)
+	                { className: 'post-form', style: { flex: 1 } },
+	                function () {
+	                  if (item.postFormShown) return React.createElement(Textarea, null);
+	                }()
 	              )
 	            )
 	          ));
@@ -498,6 +502,30 @@ var homeTest =
 	            { className: 'list-group' },
 	            this.getData()
 	          )
+	        )
+	      );
+	    }
+	  });
+	
+	  var PostToolBar = React.createClass({
+	    displayName: 'PostToolBar',
+	
+	    getInitialState: function getInitialState() {
+	      return { messagesList: '' };
+	    },
+	    render: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: 'flex-column justify-around' },
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement(IconDelete, { click: this.props.deleteItem.bind(null, this.props.item.id) })
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement(IconPost, { click: this.props.showPostMessage.bind(null, this.props.item.id) })
 	        )
 	      );
 	    }
@@ -781,9 +809,7 @@ var homeTest =
 	        React.createElement(Route, { path: 'users', component: elements.UsersList })
 	      )
 	    )
-	  ), document.getElementById('content'), function () {
-	    $('.custom-table').scrollTop(parseInt($('.list-group').css('height'), 10));
-	  });
+	  ), document.getElementById('content'));
 	}
 	
 	store.subscribe(render);
@@ -802,6 +828,14 @@ var homeTest =
 	  switch (action.type) {
 	    case 'MESSAGES_UPDATED':
 	      return action.messages;
+	      break;
+	    case 'TOGGLE_POST':
+	      return state.map(function (item) {
+	        if (item.id == action.id) {
+	          item.postFormShown = !item.postFormShown;
+	        }
+	        return item;
+	      });
 	    default:
 	      return state ? state : [];
 	  }

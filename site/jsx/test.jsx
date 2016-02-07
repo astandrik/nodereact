@@ -36,9 +36,6 @@ var socket =  io.connect(location.host);
               </Router>
       </div>      ,
             document.getElementById('content')
-      ,
-      function() {
-         $('.custom-table').scrollTop(parseInt($('.list-group').css('height'), 10));  }
        )
   }
 

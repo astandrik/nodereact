@@ -5,6 +5,14 @@ function messagesList(state, action) {
   switch(action.type) {
     case 'MESSAGES_UPDATED':
       return  action.messages;
+      break;
+    case 'TOGGLE_POST':
+      return state.map(item => {
+        if(item.id == action.id) {
+          item.postFormShown = !item.postFormShown;
+        }
+        return item;
+      });
     default:
       return state ? state: [];
   }
