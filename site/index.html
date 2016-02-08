@@ -16,6 +16,24 @@
         <script src="libs/deepfreezeStandalone.js"></script>
         <script src="libs/ReactRouter.min.js"></script>
         <script src="libs/socket.io-1.4.5.js"></script>
+        <script src="libs/sylvester.js"></script>
+        <script src="libs/glUtils.js"></script>
         <script type="text/javascript" src="./bundle.js" charset="utf-8"></script>
     </body>
 </html>
+<script id="shader-fs" type="x-shader/x-fragment">
+  void main(void) {
+    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+  }
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+  attribute vec3 aVertexPosition;
+
+  uniform mat4 uMVMatrix;
+  uniform mat4 uPMatrix;
+
+  void main(void) {
+    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+  }
+</script>

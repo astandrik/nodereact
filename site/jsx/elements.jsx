@@ -4,12 +4,14 @@ module.exports = function(store) {
     var  Chat = require('./elements/Chat.jsx')(store),
          Textarea = require('./elements/Textarea.jsx')(store),
          Toolbar = require('./elements/Toolbar.jsx')(store),
-         UsersList = require('./elements/UsersList.jsx')(store);
+         UsersList = require('./elements/UsersList.jsx')(store),
+         Canvas = require('./elements/Canvas.jsx')(store);
 
   return {
-    Chat: Chat,
-    Textarea : Textarea,
-    Toolbar : Toolbar,
-    UsersList: UsersList
+    Chat,
+    Textarea,
+    Toolbar,
+    UsersList,
+    Canvas
   };
 };

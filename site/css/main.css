@@ -47,6 +47,11 @@
   margin-top: 10px;
 }
 
+#canvas-element {
+  width: 90vw;
+  height: calc(100vh - 80px);
+}
+
 .flex-column {
   display: flex;
   flex-direction: column;

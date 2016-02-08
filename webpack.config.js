@@ -1,6 +1,6 @@
 
 const USER = process.env.USER || 'Trall';
-
+var webpack = require("webpack");
 module.exports = {
     entry: "./entry.js",
     output: {
@@ -21,6 +21,9 @@ module.exports = {
            }
         ]
     },
+    plugins: [
+      new webpack.optimize.UglifyJsPlugin()
+    ],
     //watch: true,
     //progress: true,
     devtool: 'source-map'

@@ -15,6 +15,7 @@ module.exports = function(store){
             <ul className="nav navbar-nav">
               <li><Link to="/chat" className='custom-link'>Chat</Link></li>
               <li><Link to="/users" className='custom-link'>Users</Link></li>
+              <li><Link to="/canvas" className='custom-link'>Canvas</Link></li>
             </ul>
           </div>
         </nav>

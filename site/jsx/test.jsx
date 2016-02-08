@@ -32,6 +32,7 @@ var socket =  io.connect(location.host);
                 <Route path="/" component={Container}>
                   <Route path='chat' component={elements.Chat}/>
                   <Route path='users' component={elements.UsersList}/>
+                  <Route path='canvas' component={elements.Canvas}/>
                 </Route>
               </Router>
       </div>      ,
